@@ -5,6 +5,8 @@
  */
 package programa;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Ángel
@@ -16,7 +18,8 @@ public class Juego extends javax.swing.JFrame {
      */
     public Juego() {
         initComponents();
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/java/imagenes/mina.jpg"))); // NOI18N
+        ImageIcon tmp = new ImageIcon("src/main/java/imagenes/mina.jpg");
+        jButton1.setIcon(tmp);
     }
 
     /**
