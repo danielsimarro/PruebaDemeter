@@ -5,6 +5,8 @@
  */
 package programa;
 
+import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
@@ -68,6 +70,7 @@ public class Juego extends javax.swing.JFrame {
         setBackground(java.awt.Color.red);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        setForeground(java.awt.Color.red);
         setName("Juego"); // NOI18N
         setResizable(false);
 
@@ -184,7 +187,7 @@ public class Juego extends javax.swing.JFrame {
                     .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,6 +231,12 @@ public class Juego extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        // Variables para poner las fotos aleatoriamente
+        Random random = new Random();
+        ArrayList<String> rutas = new ArrayList<>();
+        // Aquí llamaremos al método para meter las rutas en las imágenes
+        meterRutas(rutas);
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -252,6 +261,22 @@ public class Juego extends javax.swing.JFrame {
                 new Juego().setVisible(true);
             }
         });
+    }
+    
+    public static void meterRutas(ArrayList<String> rutas){
+        for (int i = 0; i < 2; i++) {
+            rutas.add("imagenes/detectorMinas.png");
+            rutas.add("imagenes/dron.png");
+            rutas.add("imagenes/mina.png");
+            rutas.add("imagenes/mundo.png");
+            rutas.add("imagenes/protesis.png");
+            rutas.add("imagenes/rata.png");
+            rutas.add("imagenes/silla.png");
+            rutas.add("imagenes/suela.png");
+        }
+        for (String ruta : rutas) {
+            System.out.println(ruta);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
