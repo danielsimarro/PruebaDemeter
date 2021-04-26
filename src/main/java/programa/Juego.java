@@ -8,6 +8,7 @@ package programa;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 /**
  *
@@ -18,7 +19,11 @@ public class Juego extends javax.swing.JFrame {
     /**
      * Creates new form Juego
      */
+    private static Random random = new Random();
+    private static ArrayList<String> rutas = new ArrayList<>();
+
     public Juego() {
+        int alea = 0;
         initComponents();
         ImageIcon img = new ImageIcon("imagenes/demeter.png");
         jButton1.setIcon(img);
@@ -37,6 +42,91 @@ public class Juego extends javax.swing.JFrame {
         jButton14.setIcon(img);
         jButton15.setIcon(img);
         jButton16.setIcon(img);
+
+        // 
+        meterRutas(rutas);
+        ImageIcon rutasAlea = new ImageIcon();
+
+        // Prueba de que coge aleatoriamente las rutas
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton1.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton2.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton3.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton4.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton5.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton6.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton7.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton8.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton9.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton10.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size()  - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton11.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton12.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton13.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton14.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton15.setIcon(rutasAlea);
+        rutas.remove(alea);
+
+        alea = random.nextInt(rutas.size() - 1) + 1;
+        rutasAlea = new ImageIcon(rutas.get(alea));
+        jButton16.setIcon(rutasAlea);
+        rutas.remove(alea);
     }
 
     /**
@@ -232,11 +322,8 @@ public class Juego extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         // Variables para poner las fotos aleatoriamente
-        Random random = new Random();
-        ArrayList<String> rutas = new ArrayList<>();
+
         // Aquí llamaremos al método para meter las rutas en las imágenes
-        meterRutas(rutas);
-        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -262,8 +349,9 @@ public class Juego extends javax.swing.JFrame {
             }
         });
     }
-    
-    public static void meterRutas(ArrayList<String> rutas){
+
+    // Esté método servirá para meter las rutas en el ArrayList
+    public static void meterRutas(ArrayList<String> rutas) {
         for (int i = 0; i < 2; i++) {
             rutas.add("imagenes/detectorMinas.png");
             rutas.add("imagenes/dron.png");
