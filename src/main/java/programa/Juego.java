@@ -6,6 +6,7 @@
 package programa;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,113 +21,47 @@ public class Juego extends javax.swing.JFrame {
      * Creates new form Juego
      */
     private static Random random = new Random();
-    private static ArrayList<String> rutas = new ArrayList<>();
+    // Accede al método meterRutas para crear el ArrayList rutas con las 
+    // direcciones de las imágenes
+    private static ArrayList<String> rutas = meterRutas();
+    private static ArrayList<JButton> botones = new ArrayList<>();
 
     public Juego() {
         int alea = 0;
         initComponents();
+
+        botones.add(jButton1);
+        botones.add(jButton2);
+        botones.add(jButton3);
+        botones.add(jButton4);
+        botones.add(jButton5);
+        botones.add(jButton6);
+        botones.add(jButton7);
+        botones.add(jButton8);
+        botones.add(jButton9);
+        botones.add(jButton10);
+        botones.add(jButton11);
+        botones.add(jButton12);
+        botones.add(jButton13);
+        botones.add(jButton14);
+        botones.add(jButton15);
+        botones.add(jButton16);
+
         ImageIcon img = new ImageIcon("imagenes/demeter.png");
-        jButton1.setIcon(img);
-        jButton2.setIcon(img);
-        jButton3.setIcon(img);
-        jButton4.setIcon(img);
-        jButton5.setIcon(img);
-        jButton6.setIcon(img);
-        jButton7.setIcon(img);
-        jButton8.setIcon(img);
-        jButton9.setIcon(img);
-        jButton10.setIcon(img);
-        jButton11.setIcon(img);
-        jButton12.setIcon(img);
-        jButton13.setIcon(img);
-        jButton14.setIcon(img);
-        jButton15.setIcon(img);
-        jButton16.setIcon(img);
+//        ponerImagenesABotones(rutas, botones);
 
         // 
-        meterRutas(rutas);
-        ImageIcon rutasAlea = new ImageIcon();
-
         // Prueba de que coge aleatoriamente las rutas
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton1.setIcon(rutasAlea);
-        rutas.remove(alea);
+    }
 
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton2.setIcon(rutasAlea);
-        rutas.remove(alea);
+    public static void ponerImagenesABotones(ArrayList<String> rutas, ArrayList<JButton> botones) {
 
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton3.setIcon(rutasAlea);
-        rutas.remove(alea);
+        int alea = random.nextInt(rutas.size()) + 1;
+        for (JButton boton : botones) {
+            ImageIcon rutasAlea = new ImageIcon(rutas.get(alea));
+            boton.setIcon(rutasAlea);
+        }
 
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton4.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton5.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton6.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton7.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton8.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton9.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton10.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size()  - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton11.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton12.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton13.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton14.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton15.setIcon(rutasAlea);
-        rutas.remove(alea);
-
-        alea = random.nextInt(rutas.size() - 1) + 1;
-        rutasAlea = new ImageIcon(rutas.get(alea));
-        jButton16.setIcon(rutasAlea);
-        rutas.remove(alea);
     }
 
     /**
@@ -260,17 +195,16 @@ public class Juego extends javax.swing.JFrame {
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,8 +284,17 @@ public class Juego extends javax.swing.JFrame {
         });
     }
 
+//    // Este método meterá todos los botones en una lista
+//    public ArrayList<JButton> meterBotonesEnLista() {
+//
+//        return botones;
+//    }
     // Esté método servirá para meter las rutas en el ArrayList
-    public static void meterRutas(ArrayList<String> rutas) {
+    public static ArrayList<String> meterRutas() {
+        ArrayList<String> rutas = new ArrayList<>();
+        // Esto lo que hará es meter las rutas 2 veces con idea de que haya dos 
+        // imagenes para crear una pareja y cuando se meta una en una imagen, se
+        // elimine del ArrayList
         for (int i = 0; i < 2; i++) {
             rutas.add("imagenes/detectorMinas.png");
             rutas.add("imagenes/dron.png");
@@ -362,9 +305,13 @@ public class Juego extends javax.swing.JFrame {
             rutas.add("imagenes/silla.png");
             rutas.add("imagenes/suela.png");
         }
+        // Coge la lista y mezcla los valores para que sean aleatorios
+        Collections.shuffle(rutas);
+        // Muestra todas las rutas
         for (String ruta : rutas) {
             System.out.println(ruta);
         }
+        return rutas;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
