@@ -5,8 +5,8 @@
  */
 package programa;
 
-
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -16,19 +16,27 @@ import javax.swing.JButton;
  *
  * @author Ángel
  */
-public class Juego extends javax.swing.JFrame {
+public class Juego extends javax.swing.JFrame implements ActionListener {
+
     //Atributo para guardar la posición de la imagen y comnpararla con otra, para ver si son iguales
     private int comprobarPosicion;
     //ArrayLis donde guardamos todals las rutas acertadas
     private final ArrayList<String> acertadas;
     //ArrayList donde guardamos todas las rutas para asignar a cada boton cuando pulsemos
     private final ArrayList<String> rutas;
-    //ArrayList donde guardmos todos los botones que tenemos en nueestro juego
-    private ArrayList<JButton> botones;
+    //ArrayList donde guardmos todos los botones que tenemos en nuestro juego
+    private ArrayList<Botones> botones = new ArrayList<>();
+    
+
+    private static JButton botonComprobar;
+
+    private static String rutaComprobar;
 
     public Juego() {
         //Este metodo inicializa los componentes del juego
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
 
         //Añadimos a una lista de botones todos los botones de nuestro juego
         botones.add(jButton1);
@@ -47,7 +55,7 @@ public class Juego extends javax.swing.JFrame {
         botones.add(jButton14);
         botones.add(jButton15);
         botones.add(jButton16);
-        
+
         //Le asignamos la imagen a todos los botones
         imagenDemeter(botones);
 
@@ -55,22 +63,26 @@ public class Juego extends javax.swing.JFrame {
         comprobarPosicion = -1;
 
         //Inicializamos rutas y le añadimos las rutas a la lista 
-        rutas = new ArrayList<>();
-        meterRutas(rutas);
+        rutas = meterRutas();
+        
+
+        for (JButton boton : this.botones) {
+            boton.addActionListener(this);
+        }
 
         //Inicializamos acertadas
         acertadas = new ArrayList<>();
 
     }
-    
+
     //Metodo para poner las imagenes de demeter al empezar el juego
-    private static void imagenDemeter(ArrayList<JButton> botones){
-        ImageIcon imagen = new ImageIcon("./src/main/java/imagenes/demeter.png");
-        for(int i = 0; i<botones.size();i++){
+    private static void imagenDemeter(ArrayList<JButton> botones) {
+        ImageIcon imagen = new ImageIcon("imagenes/demeter.png");
+        for (int i = 0; i < botones.size(); i++) {
             botones.get(i).setIcon(imagen);
         }
     }
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -210,6 +222,7 @@ public class Juego extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Juego().setVisible(true);
             }
@@ -218,60 +231,113 @@ public class Juego extends javax.swing.JFrame {
 
     public void actionPerformed(ActionEvent ae) {
         
+        //Poner contador cada vez que se ejecute el actionPerformed
+        ImageIcon imagen = new ImageIcon("imagenes/demeter.png");
+
         Random random = new Random();
-        
+
+        //Obtenemos el boton que hemos pulsado
         JButton botonPulsado = (JButton) ae.getSource();
 
-        int aleatorio = random.nextInt(8);
-        
+        int aleatorio = random.nextInt(rutas.size());
+
         String rutaActual = rutas.get(aleatorio);
 
+        cambiarImagen(botonPulsado, rutaActual);
+
         if (comprobarPosicion == -1) {
-            comprobarPosicion = aleatorio;
-            comprobarBoton(botonPulsado,rutaActual);
-            
+            rutaComprobar = rutaActual;
+            comprobarPosicion = 0;
+            botonComprobar = botonPulsado;
         } else {
-            if (comprobarPosicion == aleatorio) {
-                acertadas.add(rutas.get(aleatorio));
-                rutas.remove(aleatorio);
-                
-                //JOpitionPane.showMessageDialog(null,"Se presiono botón 1");
-            }
+
             comprobarPosicion = -1;
 
+            if (rutaComprobar == rutaActual) {
+                botonPulsado.setEnabled(false);
+                botonComprobar.setEnabled(false);
+                acertadas.add(rutaActual);
+                rutas.remove(rutaActual);
+            } else {
+                botonPulsado.setIcon(imagen);
+                botonComprobar.setIcon(imagen);
+            }
         }
 
     }
 
     //Metodo que comprueba si los botones son iguales y si es asi muestra la imagen y desactiva los botones
-    private  void comprobarBoton(JButton botonComprobar, String ruta) {
-        ImageIcon imagenNueva = new ImageIcon (ruta);
+    private void comprobarBoton(JButton botonComprobar, String ruta) {
+
         boolean encontrado = false;
         int contador = 0;
         do {
-            if(botonComprobar.equals(botones.get(contador))){
+            if (botonComprobar.equals(botones.get(contador))) {
                 encontrado = true;
                 botones.get(contador).setEnabled(false);
-                botones.get(contador).setIcon(imagenNueva);
             }
             contador++;
         } while (!encontrado);
     }
 
+    // Esté método servira para añadir al ArrayList todas las rutas de 
+    //las imagenes que queremos mostrar
+    public static ArrayList<String> meterRutas() {
 
-    // Esté método servira para añadir al ArrayList todas las rutas posibles
-    public static void meterRutas(ArrayList<String> listaRutas) {
+        ArrayList<String> listaRutas = new ArrayList<>();
 
-        listaRutas.add("./src/main/java/imagenes/detectorMinas.png");
-        listaRutas.add("./src/main/java/imagenes/rata.png");
-        listaRutas.add("./src/main/java/imagenes/silla.png");
-        listaRutas.add("./src/main/java/imagenes/protesis.png");
-        listaRutas.add("./src/main/java/imagenes/suela.png");
-        listaRutas.add("./src/main/java/imagenes/mundo.png");
-        listaRutas.add("./src/main/java/imagenes/mina.png");
-        listaRutas.add("./src/main/java/imagenes/dron.png");
+        for(int i = 0;i<2;i++){
+        listaRutas.add("imagenes/detectorMinas.png");
+        listaRutas.add("imagenes/rata.png");
+        listaRutas.add("imagenes/silla.png");
+        listaRutas.add("imagenes/protesis.png");
+        listaRutas.add("imagenes/suela.png");
+        listaRutas.add("imagenes/mundo.png");
+        listaRutas.add("imagenes/mina.jpg");
+        listaRutas.add("imagenes/dron.png");
+        }
+
+        return listaRutas;
 
     }
+
+    //Metodo que cambia la imagen
+    private static void cambiarImagen(JButton botonCambiar, String ruta) {
+        ImageIcon imagenNueva = new ImageIcon(ruta);
+        botonCambiar.setIcon(imagenNueva);
+    }
+    
+    //Metodo para poner las rutas aleatorias
+    public static String[] asignacionAleatorio(){
+        
+        ArrayList<String> listaRutas = meterRutas();
+        Random random = new Random();
+        String[] ruta = new String [16]; 
+        int aleatorio;
+        
+        for(int i = 0;i<ruta.length;i++){
+        
+        aleatorio = random.nextInt(listaRutas.size());
+        
+        ruta[i]= listaRutas.get(aleatorio);
+        
+        listaRutas.remove(aleatorio);
+        
+        }
+        
+        return ruta;
+        
+    }
+    
+    
+//    public void meterImagen(String [] array,JButton botonPulsado){
+//        
+//        switch(botonPulsado){
+//            case jButton1:
+//                break;
+//        }
+//    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
