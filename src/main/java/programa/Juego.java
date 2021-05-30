@@ -19,26 +19,30 @@ import javax.swing.JButton;
 public class Juego extends javax.swing.JFrame implements ActionListener {
 
     //ArrayList donde guardmos todos los botones que tenemos en nuestro juego
-    private ArrayList<JButton> botones = new ArrayList<>();
+    private final ArrayList<JButton> botones = new ArrayList<>();
     //Este contador nos permite comprobar cuantas click realiza el usuario 
     //sobre los botones, lo inicializo a tres ya que en el action listener 
     //según si el resto de contador%2 es par o inpar realizara una cosa u otra
     private static int contador = 3;
 
-    private final  ArrayList<String> rutasAleatorias ;
+    //En este atributo guardaremos todas las rutas de las imagenes repetida una vez cada uno
+    //distribuidas de forma aleatoria
+    private final ArrayList<String> rutasAleatorias;
 
-//    private static JButton primerBoton;
-//
-//    private static JButton segundoBoton;
-//
-//    private static String primeraRuta;
-//
-//    private static String segundaRuta;
+    //Aqui vamos a guardar el primer boton pulsado cada vez que encontremos o no parejas
+    private static JButton primerBoton;
 
+    //Aqui vamos a guardar el segundo boton pulsado cada vez que encontremos o no parejas
+    private static JButton segundoBoton;
+
+    //Aqui vamos a guardar el boton que vamos a comparar si son iguales los dos
+    //botones pulsados
     private static JButton botonComprobar;
 
+    //Aqui vamos a guardar la ruta que vamos a comparar si son iguales las dos
+    //rutas 
     private static String rutaComprobar;
-
+    
     public Juego() {
         //Este metodo inicializa los componentes del juego
         initComponents();
@@ -83,22 +87,20 @@ public class Juego extends javax.swing.JFrame implements ActionListener {
         jButton15.setName("14");
         botones.add(jButton16);
         jButton16.setName("15");
-       
 
         //Le asignamos la imagen demeter a todos los botones
         imagenDemeter(botones);
 
         //Este bucle nos permite añadir un actionListener a cada botón
-        for (JButton boton : this.botones) {
+        this.botones.forEach(boton -> {
             boton.addActionListener(this);
-        }
+        });
         
         rutasAleatorias = new ArrayList<>();
-        
+
         //Llamamos al metodo asignarAleatorioLista para que nos rellene el atributo 
         //de rutasAleatoria
         asignarAleatorioLista();
-        
         
     }
 
@@ -110,7 +112,7 @@ public class Juego extends javax.swing.JFrame implements ActionListener {
             botones.get(i).setIcon(imagen);
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -249,13 +251,9 @@ public class Juego extends javax.swing.JFrame implements ActionListener {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Juego().setVisible(true);
-                //Asignamos las rutas en posiciones aleatorias al atributo rutasAleatorias
-                
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Juego().setVisible(true);
+            //Asignamos las rutas en posiciones aleatorias al atributo rutasAleatorias
         });
     }
 
@@ -271,37 +269,39 @@ public class Juego extends javax.swing.JFrame implements ActionListener {
 
         //Guardamos la ruta del boton pulsado utilizando el metodo devolverRuta
         String rutaActual = devolverRuta(botonPulsado);
-
-        //Si el contador no es par cambiamos la imagen, asignamos a ruta comprobar el
-        //la ruta del boton pulsado y a botonComprobar el boton pulsado
+        
+        if (contador != 3 && contador % 2 == 1 && primerBoton.isEnabled()) {
+            primerBoton.setIcon(imagen);
+            segundoBoton.setIcon(imagen);
+        }
+        
         if (contador % 2 == 1) {
             cambiarImagen(botonPulsado, rutaActual);
             rutaComprobar = rutaActual;
             botonComprobar = botonPulsado;
+            primerBoton = botonPulsado;
         } else {
-            //Si es par mostramos el boton pulsado
+            
             cambiarImagen(botonPulsado, rutaActual);
-            //Si son iguales desabilitamos los dos botones y 
-            if (rutaComprobar == rutaActual) {
+            segundoBoton = botonPulsado;
+            
+            if (rutaComprobar.equals(rutaActual)) {
                 botonPulsado.setEnabled(false);
                 botonComprobar.setEnabled(false);
-            } else if (contador % 2 == 0) {
-                botonPulsado.setIcon(imagen);
-                botonComprobar.setIcon(imagen);
             }
         }
-
+        
         contador++;
-
+        
     }
 
     // Esté método servira para añadir al ArrayList todas las rutas de 
     //las imagenes que queremos mostrar, genera una lista de 16 rutas
     //donde cada ruta se repite 1 vez y devuelve esta lista
     public static ArrayList<String> meterRutas() {
-
+        
         ArrayList<String> listaRutas = new ArrayList<>();
-
+        
         for (int i = 0; i < 2; i++) {
             listaRutas.add("imagenes/detectorMinas.png");
             listaRutas.add("imagenes/rata.png");
@@ -312,9 +312,9 @@ public class Juego extends javax.swing.JFrame implements ActionListener {
             listaRutas.add("imagenes/mina.jpg");
             listaRutas.add("imagenes/dron.png");
         }
-
+        
         return listaRutas;
-
+        
     }
 
     //Metodo al cual le pasamos una ruta de una imagen y un botton, 
@@ -331,31 +331,31 @@ public class Juego extends javax.swing.JFrame implements ActionListener {
     //tengan cada vez imagenes aleatorias. Ejemplo: El boton jButton1 cojera la ruta
     //de la posicion 1 del array, el jButton2 cojera la 2 posición ...
     public static String[] asignacionAleatorio() {
-
+        
         ArrayList<String> listaRutas = meterRutas();
         Random random = new Random();
         String[] ruta = new String[16];
         int aleatorio;
-
+        
         for (int i = 0; i < ruta.length; i++) {
-
+            
             aleatorio = random.nextInt(listaRutas.size());
-
+            
             ruta[i] = listaRutas.get(aleatorio);
-
+            
             listaRutas.remove(aleatorio);
-
+            
         }
-
+        
         return ruta;
-
+        
     }
 
     //Con este metodo llamamos a asignacionAleatorio y le asignamos todas
     //las rutas aleatorios generadas a una lista que tenemos como atributo de la clase y statica
-    public  void asignarAleatorioLista() {
+    public void asignarAleatorioLista() {
         String[] ruta = asignacionAleatorio();
-
+        
         for (int i = 0; i < 16; i++) {
             rutasAleatorias.add(ruta[i]);
         }
@@ -365,14 +365,12 @@ public class Juego extends javax.swing.JFrame implements ActionListener {
     //al boton que ha sido pulsado, le pasaremos el boton,
     //el cual tendra un nombre, si es el boton uno cojera la ruta
     //de la posicion 1 de rutasAleatorias, asi con cada boton.
-    public  String devolverRuta(JButton boton) {
-
+    public String devolverRuta(JButton boton) {
+        
         String nombreBoton = boton.getName();
-
+        
         int numeroBoton = Integer.parseInt(nombreBoton);
         
-        System.out.println(rutasAleatorias.get(numeroBoton));
-
         return rutasAleatorias.get(numeroBoton);
     }
 
